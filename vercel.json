@@ -1,8 +1,8 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "https://plattr.onrender.com/api/:path*"
+      "src": "^/api/(.*)",
+      "dest": "https://plattr.onrender.com/api/$1"
     }
   ]
 }
