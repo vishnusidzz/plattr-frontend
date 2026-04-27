@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out forwards;
+}
+.transition-apply {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .2s ease;
+}
+.pkg-error-highlight {
+  box-shadow: 0 0 0 3px rgba(219, 31, 63, 0.18);
+  transition: box-shadow 300ms ease;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #adbbb6 !important; /* green-500 */
+  font-weight: bold;
+}
+/* example in src/index.css or a dedicated css file */
+.swiper-pagination-bullet {
+  background-color: #e7e8ea !important; /* gray-300 */
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background-color: #1161bd !important; /* green-500 */
+}
+@keyframes party-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-party {
+  background-size: 300% 300%;
+  animation: party-shimmer 3s linear infinite;
+}
+.safe-fixed {
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-right: env(safe-area-inset-right);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

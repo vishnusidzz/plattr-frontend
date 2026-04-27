@@ -1,0 +1,203 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #4f46e5;
+  /* Indigo */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 220ms ease-out;
+}
+
+/* slide up + fade for popovers */
+@keyframes popSlide {
+  from {
+    transform: translateY(6px) scale(0.995);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop-slide {
+  animation: popSlide 160ms cubic-bezier(.2, .9, .2, 1);
+}
+
+/* optional small highlight when hovering the rating control */
+.rating-popover-anchor:focus,
+.rating-popover-anchor:hover {
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.08);
+}
+
+/* bar transition (already using Tailwind but add if required) */
+.rating-bar-transition {
+  transition: width 220ms ease;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+/* Refresh sweep animation */
+@keyframes refreshSweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.btn-refresh-anim {
+  background-image: linear-gradient(
+    120deg,
+    #d6d1d1 40%,
+    #f3f4f6 50%,
+    #ffffff 60%
+  );
+  background-size: 200% 100%;
+  animation: refreshSweep 0.7s ease-out;
+}
+/*  Hero wrapper must be relative */
+.fme-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/*  Side images (Swiggy style) */
+.fme-side-img {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+
+  filter: drop-shadow(0px 22px 38px rgba(0, 0, 0, 0.22));
+  animation: fmeFloat 6s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+/* Left image placement */
+.fme-side-img--left {
+  width: clamp(130px, 16vw, 190px);
+  left: -50px;       /* push outside */
+  top: 50px;
+  --rot: -8deg;
+}
+
+/* Right image placement */
+.fme-side-img--right {
+  width: clamp(140px, 17vw, 200px);
+  right: -50px;      /* push outside */
+  top: 130px;
+  --rot: 8deg;
+}
+
+/* Floating animation */
+@keyframes fmeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--rot, 0deg));
+  }
+}
+
+/*  Responsive: hide on small screens */
+@media (max-width: 900px) {
+  .fme-side-img {
+    display: none;
+  }
+}
+.fme-hero-main,
+.fme-hero-cards {
+  position: relative;
+  z-index: 5;
+}
+.fme-hero-main {
+  padding-top: 40px;
+}
+.fme-side-img{
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: contain;
+}
+.fme-side-img--left{
+  transform: scale(0.6);
+  transform-origin: left top;
+}
+
+.fme-side-img--right{
+  transform: scale(0.6);
+  transform-origin: right top;
+}

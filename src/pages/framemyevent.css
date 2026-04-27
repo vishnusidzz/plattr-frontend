@@ -1,0 +1,295 @@
+/* framemyevent.css */
+
+/* ============ Root & Global ============ */
+
+:root {
+  --fme-primary: #204dcb;
+  --fme-bg: #204dcb;
+  --fme-card-radius: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.fme-page {
+  min-height: 100vh;
+  background: var(--fme-bg);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ============ Header ============ */
+
+.fme-header {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fme-logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.fme-logo span {
+  color: #ffcf33;
+}
+
+.fme-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 14px;
+}
+
+.fme-nav a {
+  color: #f9fafb;
+  text-decoration: none;
+}
+
+.fme-nav a:hover {
+  text-decoration: underline;
+}
+
+.fme-ghost-btn,
+.fme-dark-btn {
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* ============ Hero ============ */
+
+.fme-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fme-hero-main {
+  width: 100%;
+  max-width: 720px;
+}
+
+.fme-hero-title {
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 1000;
+  max-width: 1000px;
+}
+
+.fme-hero-subtitle {
+  margin-top: 10px;
+  max-width: 1000px;
+  color: #e5e7eb;
+  font-size: 15px;
+}
+
+/* ============ Inputs ============ */
+
+.fme-search-row {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fme-input {
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 240px;
+}
+
+.fme-location-input {
+  max-width: 280px;
+}
+
+.fme-input input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  color: #111827;
+}
+
+/* ============ Cards ============ */
+
+.fme-hero-cards {
+  margin-top: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 28px;
+  width: 100%;
+}
+
+.fme-card {
+  position: relative; 
+  overflow: hidden; 
+  width: 310px;
+  height: 185px;
+  background: #ffffff;
+  border-radius: var(--fme-card-radius);
+  padding: 20px 18px;
+  display: flex;
+  justify-content: space-between;
+  color: #111827;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.25);
+}
+
+/* ---------- Coming Soon – Grey ---------- */
+
+.fme-card--comingsoon {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.fme-card--comingsoon .fme-card-badge {
+  background: rgba(0, 0, 0, 0.08);
+  color: #374151;
+}
+
+/* ---------- Catering – White with Gradient Title ---------- */
+
+.fme-card--catering {
+  background: #ffffff; /* same as other cards */
+  color: #111827;
+  box-shadow: 0 16px 32px rgba(22, 163, 74, 0.25); /* a bit stronger */
+}
+
+/* Gradient title text */
+.fme-card--catering .fme-card-title {
+  background: linear-gradient(to top right, #c4e721, #63ac20, #095104, #143409);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900;
+}
+
+/* Darker subtitle for readability */
+.fme-card--catering .fme-card-subtitle {
+  color: #374151;
+  opacity: 0.95;
+}
+
+/* Green accent badge */
+.fme-card--catering .fme-card-badge {
+  background: rgba(99, 172, 32, 0.12);
+  color: #095104;
+  border: 1px solid rgba(99, 172, 32, 0.4);
+}
+
+/* Arrow in solid green */
+.fme-card--catering .fme-card-arrow {
+  color: #63ac20;
+}
+
+/* ---------- Shared Card Styling ---------- */
+
+.fme-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fme-card-title {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.fme-card-subtitle {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.fme-card-badge {
+  margin-top: 6px;
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fme-card-arrow {
+  font-size: 24px;
+  color: #f97316;
+}
+
+/* ============ Mobile Responsive ============ */
+
+@media (max-width: 760px) {
+  .fme-hero-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fme-card {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* ---------- Catering Card Decorative Image ---------- */
+
+.fme-card-decor {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  width: 90px;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Slight hover polish */
+.fme-card:hover .fme-card-decor {
+  transform: translateY(-2px) scale(1.05);
+  opacity: 1;
+}
+
+/* Keep text above image */
+.fme-card-text,
+.fme-card-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hide on very small screens */
+@media (max-width: 480px) {
+  .fme-card-decor {
+    display: none;
+  }
+}
