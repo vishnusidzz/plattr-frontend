@@ -82,6 +82,17 @@ export default function MenuItemModal({
       window.alert("Composition type is required");
       return;
     }
+    if (isAddon) {
+
+      if (!price || parseFloat(price) <= 0) {
+
+        window.alert("Per plate price is required for Addon items");
+
+        return;
+
+      }
+
+    }
 
     // If default item (not addon), price must be 0 regardless of the input
     const parsedPrice = isAddon ? (parseFloat(price) || 0) : 0;
@@ -187,8 +198,8 @@ export default function MenuItemModal({
               <button
                 type="button"
                 className={`px-3 py-1 rounded-md font-semibold transition ${cuisine === "veg"
-                    ? "bg-green-600 text-white shadow"
-                    : "bg-white border hover:bg-gray-50"
+                  ? "bg-green-600 text-white shadow"
+                  : "bg-white border hover:bg-gray-50"
                   }`}
                 onClick={() => setCuisine("veg")}
               >
@@ -197,8 +208,8 @@ export default function MenuItemModal({
               <button
                 type="button"
                 className={`px-3 py-1 rounded-md font-semibold transition ${cuisine === "nonveg"
-                    ? "bg-red-600 text-white shadow"
-                    : "bg-white border hover:bg-gray-50"
+                  ? "bg-red-600 text-white shadow"
+                  : "bg-white border hover:bg-gray-50"
                   }`}
                 onClick={() => setCuisine("nonveg")}
               >
@@ -216,8 +227,8 @@ export default function MenuItemModal({
                   key={opt.key}
                   type="button"
                   className={`px-3 py-1 rounded-md text-sm font-medium transition ${compositionType === opt.key
-                      ? "bg-indigo-600 text-white shadow"
-                      : "bg-white border hover:bg-gray-50"
+                    ? "bg-indigo-600 text-white shadow"
+                    : "bg-white border hover:bg-gray-50"
                     }`}
                   onClick={() => setCompositionType(opt.key)}
                 >
@@ -248,7 +259,7 @@ export default function MenuItemModal({
                 >
                   Default Item
                 </button>
-                
+
               </div>
             </div>
           </div>
