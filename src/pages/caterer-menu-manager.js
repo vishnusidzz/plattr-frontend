@@ -55,15 +55,13 @@ export default function CatererMenuManager() {
             const res = await axios.get("/api/caterers/me/");
             const data = res.data;
 
-            setCaterer(data);
+            const normalized =
+                data?.caterer_serialized ||   // GET /me/
+                data?.data ||                 // PATCH response (future-safe)
+                data;                         // fallback
 
-            const normalized = String(
-                data?.cuisine || data?.cuisine_type || "both"
-            ).toLowerCase();
+            setCaterer(normalized);
 
-            if (normalized === "veg") setFilter("veg");
-            else if (normalized.includes("non")) setFilter("nonveg");
-            else setFilter("all");
         } catch (err) {
             console.error("fetchCaterer error", err);
         }
@@ -359,35 +357,37 @@ export default function CatererMenuManager() {
     };
 
     const submitUtensilsUpdate = async () => {
-        // validation
         const parsed = Number(utensilsValue);
+
         if (Number.isNaN(parsed) || parsed < 0) {
             window.alert("Please enter a valid non-negative number for utensils value.");
             return;
         }
 
         setUpdatingUtensils(true);
+
         try {
-            const url = (`/api/caterers/update-utensils-fee/`);
-            const body = {
-                type: utensilsType === "percent" ? "percent" : "fixed",
-                value: parsed,
-            };
-            const res = await fetch(url, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json", ...getAuthHeaders() },
-                body: JSON.stringify(body),
-            });
-            if (!res.ok) {
-                const txt = await res.text().catch(() => "");
-                console.error("update utensils failed:", res.status, txt);
-                const msg = txt || "Failed to update utensils fee";
-                window.alert(msg);
-                return;
+            const res = await axios.patch(
+                "/api/caterers/update-utensils-fee/",
+                {
+                    type: utensilsType === "percent" ? "percent" : "fixed",
+                    value: parsed,
+                }
+            );
+
+            const json = res.data;
+
+            // Handle PATCH response shape
+            if (json?.data) {
+                setCaterer(prev => ({
+                    ...prev,
+                    utensils_fee_type: json.data.utensils_fee_type,
+                    utensils_fee_value: json.data.utensils_fee_value,
+                }));
             }
-            // success → refresh caterer
-            await fetchCaterer();
+
             setUtensilsModalOpen(false);
+
         } catch (err) {
             console.error("submitUtensilsUpdate error:", err);
             window.alert("Failed to update utensils fee");
@@ -1218,7 +1218,7 @@ export default function CatererMenuManager() {
                                             if (!Number.isFinite(n) || n < 0) {
                                                 setUtensilsValue("");
                                             } else {
-                                                const capped = Math.min(99.99, Math.max(0, Math.round(n * 100) / 100));
+                                                const capped = Math.min(30, Math.max(0, Math.round(n * 100) / 100));
                                                 setUtensilsValue(capped.toFixed(2));
                                             }
                                         }
@@ -1237,7 +1237,7 @@ export default function CatererMenuManager() {
                                     </div>
                                 ) : (
                                     <div className="text-gray-500">
-                                        Enter percentage (0.00 – 99.99). Value will be formatted to two decimals.
+                                        Enter percentage (0.00 – 30.00). Value will be formatted to two decimals.
                                     </div>
                                 )}
                             </div>
@@ -1258,7 +1258,7 @@ export default function CatererMenuManager() {
                                         // percent
                                         // ensure <= 99.99 and >= 0
                                         const pct = Math.round(n * 100) / 100;
-                                        if (pct < 0 || pct > 10.00) return <div className="text-rose-600">Percent must be between 0.00 and 10.00</div>;
+                                        if (pct < 0 || pct > 30) return <div className="text-rose-600">Percent must be between 0.00 and 30.00</div>;
                                         // ensure two-decimal representation OK
                                         return <div className="text-green-600">Looks good: {pct.toFixed(2)}%</div>;
                                     }
