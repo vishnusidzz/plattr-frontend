@@ -349,10 +349,11 @@ export default function CatererMenuManager() {
             window.alert("Caterer info not loaded yet.");
             return;
         }
-        // prefill from caterer object if available
-        const t = caterer.utensils_fee_type || caterer.utensils_fee_type === "percent" ? caterer.utensils_fee_type : (caterer.utensils_fee_type ?? "fixed");
-        const v = caterer.utensils_fee_value ?? "";
-        setUtensilsType(t || "fixed");
+
+        const t = caterer?.utensils_fee_type || "fixed";
+        const v = caterer?.utensils_fee_value ?? "";
+
+        setUtensilsType(t);
         setUtensilsValue(v ? String(v) : "");
         setUtensilsModalOpen(true);
     };
@@ -398,11 +399,19 @@ export default function CatererMenuManager() {
     // derive utensils display from caterer
     const utensilsDisplay = () => {
         if (!caterer) return "—";
-        const type = caterer.utensils_fee_type ?? caterer.utensils_fee_type;
-        const val = caterer.utensils_fee_value ?? caterer.utensils_fee_value;
-        if (!type || val == null || val === "") return "Not set";
-        if (String(type).toLowerCase() === "percent") return `${val}%`;
-        return `₹${val}`;
+
+        const type = caterer.utensils_fee_type;
+        const val = caterer.utensils_fee_value;
+
+        if (!type || val === null || val === undefined || val === "") {
+            return "Not set";
+        }
+
+        if (String(type).toLowerCase() === "percent") {
+            return `${Number(val)}%`;
+        }
+
+        return `₹${Number(val)}`;
     };
 
     //
@@ -579,11 +588,17 @@ export default function CatererMenuManager() {
                                         <div className="text-sm font-semibold text-gray-900 truncate">
                                             {utensilsDisplay()}
                                         </div>
-                                        {!caterer?.utensils_fee_type && (
-                                            <span className="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
-                                                Not set
-                                            </span>
-                                        )}
+
+                                        {(() => {
+                                            const type = caterer?.utensils_fee_type;
+                                            const val = caterer?.utensils_fee_value;
+
+                                            return !type || val == null || val === "";
+                                        })() && (
+                                                <span className="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+                                                    Not set
+                                                </span>
+                                            )}
                                     </div>
                                 </div>
 
@@ -640,8 +655,8 @@ export default function CatererMenuManager() {
                         <button
                             onClick={() => setTab("items")}
                             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${tab === "items"
-                                    ? "bg-indigo-600 text-white shadow"
-                                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                                ? "bg-indigo-600 text-white shadow"
+                                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                                 }`}
                         >
                             Items
@@ -650,8 +665,8 @@ export default function CatererMenuManager() {
                         <button
                             onClick={() => setTab("packages")}
                             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${tab === "packages"
-                                    ? "bg-amber-600 text-white shadow"
-                                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                                ? "bg-amber-600 text-white shadow"
+                                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                                 }`}
                         >
                             Packages
